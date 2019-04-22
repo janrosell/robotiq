@@ -262,7 +262,7 @@
 			<parent link="${name}_base"/>
 			<child link="${name}_left_driver"/>
 			<axis xyz="1 0 0"/>
-			<limit lower="${0 * 3.141592 / 180}" upper="${41 * 3.141592 / 180}" effort="176" velocity="${110 * 3.141592 / 180}" />
+			<limit lower="${0 * 3.141592 / 180}" upper="${50 * 3.141592 / 180}" effort="176" velocity="${110 * 3.141592 / 180}" />
 
 			<xacro:unless value="${adaptive_transmission}">
 			<mimic joint="${name}_right_driver_joint" multiplier="1"/>
