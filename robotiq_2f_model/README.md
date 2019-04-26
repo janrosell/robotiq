@@ -6,12 +6,12 @@ This package contents the urdf model macros of the 85mm and 140mm stroke models 
 
 The [`launch`](launch) and [`robot`](robot) shows a quick example out-of-the box for visualization that you can invoke directly with `roslaunch robotiq_c_description display.launch`.
 
-The relevant folder is [`model`](model) that contains all geometries and parameters used for robotic applications and simulation. 
+The relevant folder is [`model`](model) that contains all geometries and parameters used for robotic applications and simulation.
 
 This is the visual geometry of the 85mm model       
 ![85mm](media/visual.png)
 
-For a model to be instantiated, there are two __mandatory__ parameters `parent` and `name`, and three __optional__ parameters that are the `origin`, `precise_collision` and the `adaptive_transmission` (see for instance [the 85mm model](model/c85.urdf.xacro#L29)).
+For a model to be instantiated, there are two __mandatory__ parameters `parent` and `name`, and four __optional__ parameters that are the `origin`, `precise_collision`, the `adaptive_transmission` and the `with_pads` (see for instance [the 85mm model](model/c85.urdf.xacro#L29)).
 
 - `name` is your model instance (equivalent to `prefix` in ros-industrial), but here it is mandatory to name the device, since it is always related to the hardware interface package. No underscore `_` is needed by the way.
 
@@ -29,3 +29,19 @@ and this is the precise collision (`precise_collision=false`)
 
 - `adaptive_transmission` is set to `false` by default, and it selects whether to use a pure mimic joint motion or use adaptivity in the motion.
 
+- `with_pads` attaches the default pads the gripper comes with if set to `true` (default behavior). If set to `false` it leaves the space for any custom pad.
+
+## Simulation on gazebo
+
+The only behavior is with `adaptive_transmission` to false, so the gripper behaves similar to a parallel gripper.
+
+It requires this mimic joint plugin which is the best we can have for now:
+
+* https://github.com/roboticsgroup/roboticsgroup_gazebo_plugins
+
+
+On tiny detail.. the DAE geometry was giving problems in gazebo, so for now the visual geometry is replaced with the STL from precise collision.
+
+This is what it looks like using the gazebo ros control plugin:
+
+![animation](media/snapshots.gif)
