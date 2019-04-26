@@ -13,5 +13,5 @@
 
   <author email="carlos@beta-robots.com">Carlos J. Rosales Gallegos</author>
 
-  <depend>catkin</depend>
+  <buildtool_depend>catkin</buildtool_depend>
 </package>
