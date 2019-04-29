@@ -40,8 +40,9 @@
 				<cylinder_inertia radius="0.04" length="0.045" mass="0.2"/>
 			</inertial>
 			<visual>
+				<origin xyz="0 0 0" rpy="0 -1.5708 0"/>
 				<geometry>
-					<mesh filename="package://robotiq_2f_model/model/meshes/2f85/collision/base.stl" scale="0.001 0.001 0.001"/>
+					<mesh filename="package://robotiq_2f_model/model/meshes/2f85/visual/base.dae"/>
 				</geometry>
 			</visual>
 			<xacro:unless value="${precise_collision}">
