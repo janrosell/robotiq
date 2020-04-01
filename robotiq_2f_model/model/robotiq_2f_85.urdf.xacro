@@ -81,7 +81,7 @@
 			<inertial>
 				<mass value="0.1"/>
 				<origin xyz="0 0.02 0" rpy="0 0 0" />
-				<box_inertia x_dim="0.02" y_dim="0.04" z_dim="0.02" mass="0.1"/>
+				<xacro:box_inertia x_dim="0.02" y_dim="0.04" z_dim="0.02" mass="0.1"/>
 			</inertial>
 			<visual>
 				<geometry>
@@ -125,7 +125,7 @@
 			<inertial>
 				<mass value="0.1"/>
 				<origin xyz="0 0.0 0.025" rpy="-1.7 0 0"/>
-				<box_inertia x_dim="0.03" y_dim="0.065" z_dim="0.02" mass="0.1"/>
+				<xacro:box_inertia x_dim="0.03" y_dim="0.065" z_dim="0.02" mass="0.1"/>
 			</inertial>
 			<visual>
 				<geometry>
@@ -164,7 +164,7 @@
 			<inertial>
 				<mass value="0.1"/>
 				<origin xyz="0 -0.018 0.022" />
-				<box_inertia x_dim="0.02" y_dim="0.015" z_dim="0.048" mass="0.1"/>
+				<xacro:box_inertia x_dim="0.02" y_dim="0.015" z_dim="0.048" mass="0.1"/>
 			</inertial>
 			<visual>
 				<geometry>
@@ -197,7 +197,7 @@
 				<inertial>
 					<mass value="0.1"/>
 					<origin xyz="0 -0.022 0.031" />
-					<box_inertia x_dim="0.02" y_dim="0.008" z_dim="0.036" mass="0.1"/>
+					<xacro:box_inertia x_dim="0.02" y_dim="0.008" z_dim="0.036" mass="0.1"/>
 				</inertial>
 				<visual>
 					<geometry>
