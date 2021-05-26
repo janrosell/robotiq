@@ -27,7 +27,34 @@ std::string getURDF(ros::NodeHandle &model_nh, std::string param_name)
 	// search and wait for robot_description on param server
 	while (urdf_string.empty())
 	{
+	       /*
+		std::vector<std::string> keys;
+		model_nh.getParamNames(keys);
+		for(int i=0; i<keys.size(); i++){
+			std::cout<<i<<": "<<keys[i]<<std::endl;
+			if (ros::param::has(keys[i])) {
+				ROS_INFO("%d",i);
+			}
+			else{
+				ROS_INFO("!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			}
+		}
+		*/
+	
 		model_nh.getParam(param_name, urdf_string);
+		/*
+		if (ros::param::has("/team_A_arm/robot_description")) {
+			ROS_INFO("++++++++++++++++++++++++++++++");
+			ros::param::get("/team_A_arm/robot_description", urdf_string);
+		}
+		else{
+			ROS_INFO("-------------------------------");
+		}
+		
+		ROS_INFO("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
+		ROS_INFO_NAMED("ROBOTIQ2FUSB","Param_name = %s", param_name.c_str());
+		ROS_INFO_NAMED("ROBOTIQ2FUSB","urdf_string = %s", urdf_string.c_str());
+		*/
 		ROS_INFO_NAMED("ROBOTIQ2FUSB", "ROBOTIQ2FUSB node is waiting for model"
 			" URDF in parameter [%s] on the ROS param server.", robot_description.c_str());
 
@@ -76,7 +103,7 @@ int main( int argc, char** argv )
 	ros::ServiceServer reactivate_srv = rq2f_nh.advertiseService("reactivate", reactivateCallback);
 
 	// get the general robot description, the lwr class will take care of parsing what's useful to itself
-	std::string urdf_string = getURDF(rq2f_nh, "/robot_description");
+	std::string urdf_string = getURDF(rq2f_nh, "/team_A_arm/robot_description");
 
 	// construct and start the Robotiq 2F gripper using the USB interface 
 	robotiq_2f_hardware::ROBOTIQ2FUSB rq2f_hw;
