@@ -27,7 +27,7 @@ std::string getURDF(ros::NodeHandle &model_nh, std::string param_name)
 	// search and wait for robot_description on param server
 	while (urdf_string.empty())
 	{
-	       /*
+/*
 		std::vector<std::string> keys;
 		model_nh.getParamNames(keys);
 		for(int i=0; i<keys.size(); i++){
@@ -39,10 +39,11 @@ std::string getURDF(ros::NodeHandle &model_nh, std::string param_name)
 				ROS_INFO("!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			}
 		}
-		*/
-	
+*/
+
 		model_nh.getParam(param_name, urdf_string);
-		/*
+
+   /*
 		if (ros::param::has("/team_A_arm/robot_description")) {
 			ROS_INFO("++++++++++++++++++++++++++++++");
 			ros::param::get("/team_A_arm/robot_description", urdf_string);
@@ -50,17 +51,17 @@ std::string getURDF(ros::NodeHandle &model_nh, std::string param_name)
 		else{
 			ROS_INFO("-------------------------------");
 		}
-		
-		ROS_INFO("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
 		ROS_INFO_NAMED("ROBOTIQ2FUSB","Param_name = %s", param_name.c_str());
 		ROS_INFO_NAMED("ROBOTIQ2FUSB","urdf_string = %s", urdf_string.c_str());
 		*/
-		ROS_INFO_NAMED("ROBOTIQ2FUSB", "ROBOTIQ2FUSB node is waiting for model"
-			" URDF in parameter [%s] on the ROS param server.", robot_description.c_str());
 
 		if(!urdf_string.empty())
 		{
 			break;
+		}
+		else{
+			ROS_INFO_NAMED("ROBOTIQ2FUSB", "ROBOTIQ2FUSB node is waiting for model"
+				" URDF in parameter [%s] on the ROS param server.", robot_description.c_str());
 		}
 		wait.sleep();
 	}
@@ -89,13 +90,18 @@ int main( int argc, char** argv )
 	ros::NodeHandle rq2f_nh;
 
 	// get params or give default values
+
+	std::string _name = ros::this_node::getName();
+	ROS_WARN("Reading full node name:= %s", _name.c_str());
+
 	std::string port;
 	int server_id;
 	std::string name;
-	rq2f_nh.param("port", port, std::string("/dev/ttyUSB0"));
-	rq2f_nh.param("server_id", server_id, 9 );
-	rq2f_nh.param("name", name, std::string("simple_gripper"));
+	rq2f_nh.param(_name+"/port", port, std::string("/dev/ttyUSB0"));
+	rq2f_nh.param(_name+"/server_id", server_id, 9 );
+	rq2f_nh.param(_name+"/name", name, std::string("simple_gripper"));
 
+	ROS_WARN("Reading name:= %s", name.c_str());
 	// advertise the e-stop topic
 	ros::Subscriber estop_sub = rq2f_nh.subscribe(rq2f_nh.resolveName("emergency_stop"), 1, eStopCB);
 
@@ -105,7 +111,7 @@ int main( int argc, char** argv )
 	// get the general robot description, the lwr class will take care of parsing what's useful to itself
 	std::string urdf_string = getURDF(rq2f_nh, "/team_A_arm/robot_description");
 
-	// construct and start the Robotiq 2F gripper using the USB interface 
+	// construct and start the Robotiq 2F gripper using the USB interface
 	robotiq_2f_hardware::ROBOTIQ2FUSB rq2f_hw;
 	rq2f_hw.create(name, urdf_string);
 	rq2f_hw.setPort(port);
